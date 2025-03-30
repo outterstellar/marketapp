@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410197167360",
+    "project_id": "marketingapp-c2e11",
+    "storage_bucket": "marketingapp-c2e11.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410197167360:android:b00e3b201148abd157b7e5",
+        "android_client_info": {
+          "package_name": "com.example.marketapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_hU8tyUIB_tFCUWpYH9igOAHicVrvyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
