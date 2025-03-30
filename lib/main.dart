@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:marketapp/screens/loginscreen.dart';
+import 'package:marketapp/screens/mainscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      home: null,
+      home: pref!.getBool("remember") == true ? MainScreen() : LoginScreen(),
     );
   }
 }
