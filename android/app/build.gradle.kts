@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.dogacevcin.marketapp"
+        applicationId = "com.example.marketapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
