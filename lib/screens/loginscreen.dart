@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      width: 412.w,
+                      width: Size.infinite.width,
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Text(
