@@ -18,97 +18,111 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants.backgroundColor,
-      appBar: AppBar(
-        title: Text("Liszt Müzik Market"),
-        backgroundColor: Constants.backgroundColor,
-        centerTitle: true,
-      ),
-      body: Form(
+      body: SafeArea(
         child: Column(
           children: [
-            Divider(height: 100.h, color: Colors.transparent),
-            SizedBox(
-              width: 412.w,
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Text(
-                  "Login",
-                  style: TextStyle(fontSize: 50),
-                  textAlign: TextAlign.left,
-                ),
-              ),
+            AppBar(
+              title: Text("Liszt Müzik Market"),
+              backgroundColor: Constants.backgroundColor,
+              centerTitle: true,
             ),
-            Divider(height: 20.h, color: Colors.transparent),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  hintText: "Email",
-                ),
-              ),
-            ),
-            Divider(height: 20.h, color: Colors.transparent),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  hintText: "Password",
-                ),
-                obscureText: true,
-              ),
-            ),
-            Divider(height: 20.h, color: Colors.transparent),
-            TextButton(
-              onPressed: () {
-                Constants.push(context: context, destination: SignupScreen());
-              },
-              child: Text("I don't have an account"),
-            ),
-            TextButton(
-              onPressed: () {
-                Constants.push(context: context, destination: ForgotPassword());
-              },
-              child: Text("Forgot Password"),
-            ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 412.w,
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(fontSize: 50),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                    Divider(height: 20.h, color: Colors.transparent),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: "Email",
+                        ),
+                      ),
+                    ),
+                    Divider(height: 20.h, color: Colors.transparent),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: "Password",
+                        ),
+                        obscureText: true,
+                      ),
+                    ),
+                    Divider(height: 20.h, color: Colors.transparent),
+                    TextButton(
+                      onPressed: () {
+                        Constants.push(
+                          context: context,
+                          destination: SignupScreen(),
+                        );
+                      },
+                      child: Text("I don't have an account"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Constants.push(
+                          context: context,
+                          destination: ForgotPassword(),
+                        );
+                      },
+                      child: Text("Forgot Password"),
+                    ),
 
-            ElevatedButton(
-              onPressed: () async {
-                String email = emailController.text;
-                String password = passwordController.text;
-                try {
-                  await auth.signInWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
-                  Constants.pushAndRemoveUntil(
-                    context: context,
-                    destination: MainScreen(),
-                  );
-                } on FirebaseAuthException catch (error) {
-                  print(error.code);
-                  if (error.code == "network-request-failed") {
-                    Constants.showSnackBar(
-                      context: context,
-                      message: "Please check your internet connection",
-                    );
-                  } else if (error.code == "invalid-credential" ||
-                      error.code == "invalid-email") {
-                    Constants.showSnackBar(
-                      context: context,
-                      message: "Please check your email or password",
-                    );
-                  }
-                }
-              },
-              child: Text("Login"),
+                    ElevatedButton(
+                      onPressed: () async {
+                        String email = emailController.text;
+                        String password = passwordController.text;
+                        try {
+                          await auth.signInWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
+                          Constants.pushAndRemoveUntil(
+                            context: context,
+                            destination: MainScreen(),
+                          );
+                        } on FirebaseAuthException catch (error) {
+                          print(error.code);
+                          if (error.code == "network-request-failed") {
+                            Constants.showSnackBar(
+                              context: context,
+                              message: "Please check your internet connection",
+                            );
+                          } else if (error.code == "invalid-credential" ||
+                              error.code == "invalid-email") {
+                            Constants.showSnackBar(
+                              context: context,
+                              message: "Please check your email or password",
+                            );
+                          }
+                        }
+                      },
+                      child: Text("Login"),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
