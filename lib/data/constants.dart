@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class Constants {
   static Color backgroundColor = Color(0xffF6F1DE);
   static Color primaryColor = Color(0xffACD3A8);
+  static Color secondaryBackgroundColor = Color(0xffD4C9BE);
+  static Color buttonBackgroundColor= Color(0xff123458); 
   static void push({
     required BuildContext context,
     required Widget destination,
