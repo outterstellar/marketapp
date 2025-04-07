@@ -7,16 +7,15 @@ import 'package:marketapp/screens/signupscreen.dart';
 
 // ignore: must_be_immutable
 class ForgotPassword extends StatelessWidget {
-
   TextEditingController emailController = TextEditingController();
-   ForgotPassword({super.key});
+  ForgotPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Constants.backgroundColor,
-      body:  SafeArea(
+      body: SafeArea(
         child: Column(
           children: [
             AppBar(
@@ -30,7 +29,7 @@ class ForgotPassword extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
-                      width:Size.infinite.width,
+                      width: Size.infinite.width,
                       child: Padding(
                         padding: const EdgeInsets.all(32.0),
                         child: Text(
@@ -44,6 +43,7 @@ class ForgotPassword extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -66,19 +66,31 @@ class ForgotPassword extends StatelessWidget {
                     ),
 
                     ElevatedButton(
-                      onPressed: ()  async{
-
-                        try{
-                          await auth.sendPasswordResetEmail(email: emailController.text);
-                          Constants.showSnackBar(context: context, message: "Password Reset email sent successfully");
-                        }on FirebaseAuthException catch(error){
-                          if(error.message == "A network error (such as timeout, interrupted connection or unreachable host) has occurred."){
-                            Constants.showSnackBar(context: context, message: "Please check your internet connection");
-                          }else if(error.message == "The email address is badly formatted."){
-                            Constants.showSnackBar(context: context, message: "Please write a valid email adress");
+                      onPressed: () async {
+                        try {
+                          await auth.sendPasswordResetEmail(
+                            email: emailController.text,
+                          );
+                          Constants.showSnackBar(
+                            context: context,
+                            message: "Password Reset email sent successfully",
+                          );
+                        } on FirebaseAuthException catch (error) {
+                          if (error.message ==
+                              "A network error (such as timeout, interrupted connection or unreachable host) has occurred.") {
+                            Constants.showSnackBar(
+                              context: context,
+                              message: "Please check your internet connection",
+                            );
+                          } else if (error.message ==
+                              "The email address is badly formatted.") {
+                            Constants.showSnackBar(
+                              context: context,
+                              message: "Please write a valid email adress",
+                            );
                           }
                         }
-                        },
+                      },
                       child: Text("Send Email"),
                     ),
                   ],
