@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:marketapp/data/constants.dart';
+import 'package:marketapp/main.dart';
 import 'package:marketapp/screens/mainscreen.dart';
 
 class EmailVerification extends StatefulWidget {
@@ -35,6 +36,7 @@ class _EmailVerificationState extends State<EmailVerification> {
       if (isVerified) {
         timer.cancel();
         if (mounted) {
+          await pref!.setBool("remember", true);
           Constants.pushAndRemoveUntil(
             context: context,
             destination: MainScreen(),
@@ -49,7 +51,7 @@ class _EmailVerificationState extends State<EmailVerification> {
   }
 
   Future<bool> _checkEmailVerified() async {
-    await user?.reload(); // Firebase'ten kullanıcıyı güncelle
+    await user?.reload(); //Reload user from firebase
     return FirebaseAuth.instance.currentUser?.emailVerified ?? false;
   }
 

@@ -157,6 +157,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       });
                                   await auth.currentUser!
                                       .sendEmailVerification();
+
                                   Constants.pushAndRemoveUntil(
                                     context: context,
                                     destination: EmailVerification(),

@@ -100,10 +100,19 @@ class LoginScreen extends StatelessWidget {
                             email: email,
                             password: password,
                           );
-
+                          await pref!.setBool(
+                            "remember",
+                            auth
+                                .currentUser!
+                                .emailVerified, // if email verified, user will be directed to the main screen
+                          ); // And if user have directed to the main screen once, this means
+                          // user logged in and verified email
                           Constants.pushAndRemoveUntil(
                             context: context,
-                            destination: auth.currentUser!.emailVerified ?  MainScreen() : EmailVerification(),
+                            destination:
+                                auth.currentUser!.emailVerified
+                                    ? MainScreen()
+                                    : EmailVerification(),
                           );
                         } on FirebaseAuthException catch (error) {
                           print(error.code);
