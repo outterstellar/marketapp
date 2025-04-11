@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -145,6 +146,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
+                                  await firestore
+                                      .collection("users")
+                                      .doc(emailController.text)
+                                      .set({
+                                        "name": nameController.text,
+                                        "surname": surnameController.text,
+                                        "timestamp": Timestamp.now(),
+                                      });
                                   Constants.pushAndRemoveUntil(
                                     context: context,
                                     destination: MainScreen(),
