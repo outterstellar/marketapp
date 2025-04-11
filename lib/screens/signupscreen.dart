@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
+import 'package:marketapp/screens/emailVerification.dart';
 import 'package:marketapp/screens/mainscreen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -154,9 +155,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                         "surname": surnameController.text,
                                         "timestamp": Timestamp.now(),
                                       });
+                                  await auth.currentUser!
+                                      .sendEmailVerification();
                                   Constants.pushAndRemoveUntil(
                                     context: context,
-                                    destination: MainScreen(),
+                                    destination: EmailVerification(),
                                   );
                                 }
                               } on FirebaseAuthException catch (error) {

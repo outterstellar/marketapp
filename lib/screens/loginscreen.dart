@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
+import 'package:marketapp/screens/emailVerification.dart';
 import 'package:marketapp/screens/forgotpassword.dart';
 import 'package:marketapp/screens/mainscreen.dart';
 import 'package:marketapp/screens/signupscreen.dart';
@@ -99,9 +100,10 @@ class LoginScreen extends StatelessWidget {
                             email: email,
                             password: password,
                           );
+
                           Constants.pushAndRemoveUntil(
                             context: context,
-                            destination: MainScreen(),
+                            destination: auth.currentUser!.emailVerified ?  MainScreen() : EmailVerification(),
                           );
                         } on FirebaseAuthException catch (error) {
                           print(error.code);
