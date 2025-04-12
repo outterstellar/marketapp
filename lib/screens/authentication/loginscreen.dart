@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
-import 'package:marketapp/screens/emailVerification.dart';
-import 'package:marketapp/screens/forgotpassword.dart';
+import 'package:marketapp/screens/authentication/emailVerification.dart';
+import 'package:marketapp/screens/authentication/forgotpassword.dart';
 import 'package:marketapp/screens/mainscreen.dart';
-import 'package:marketapp/screens/signupscreen.dart';
+import 'package:marketapp/screens/authentication/signupscreen.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
