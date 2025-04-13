@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/commentmodel.dart';
 import 'package:marketapp/data/productmodel.dart';
 import 'package:marketapp/main.dart';
@@ -20,6 +22,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.backgroundColor,
+      appBar: AppBar(
+        title: Text("Liszt Müzik Market"),
+        backgroundColor: Constants.backgroundColor,
+        centerTitle: true,
+      ),
       body: FutureBuilder(
         future: getProducts(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -27,16 +34,62 @@ class _MainScreenState extends State<MainScreen> {
             productList = snapshot.data;
             return Text(snapshot.data.toString());
           } else if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
+            return Center(
+              child: Container(
+                height: 300.h,
+                width: 350.w,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Something Went Wrong! Please Check Everything And Try Again!",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            );
           } else {
-            return CircularProgressIndicator();
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: Constants.primaryColor,
+                    strokeWidth: 4,
+                  ),
+                  Divider(height: 20.h, color: Colors.transparent),
+                  Text("Loading...", style: TextStyle(fontSize: 17)),
+                ],
+              ),
+            );
           }
         },
       ),
     );
   }
 
+  Future<bool> checkConnectivity() async {
+    final result = await Connectivity().checkConnectivity();
+    if (result[0] == ConnectivityResult.none) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   Future<List<Product>> getProducts() async {
+    bool result = false;
+    result =
+        await checkConnectivity(); // false => no connection, true => a type of connection
+    if (result == false) {
+      throw (Error());
+    }
     List<Product> products = [];
     QuerySnapshot snapshot = await firestore.collection("products").get();
     snapshot.docs.forEach((element) {
