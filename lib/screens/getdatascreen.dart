@@ -23,57 +23,53 @@ class GetDataScrren extends StatefulWidget {
 class _GetDataScrrenState extends State<GetDataScrren> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Constants.backgroundColor,
-      appBar: AppBar(
-        title: Text("Liszt Müzik Market"),
-        backgroundColor: Constants.backgroundColor,
-        centerTitle: true,
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
         future: getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return MainScreen();
           } else if (snapshot.hasError) {
-            return Center(
-              child: Container(
-                height: 300.h,
-                width: 350.w,
-                decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      "Something Went Wrong! Please Check Everything And Try Again!",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                      textAlign: TextAlign.center,
+            return Scaffold(
+              body: Center(
+                child: Container(
+                  height: 300.h,
+                  width: 350.w,
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        "Something Went Wrong! Please Check Everything And Try Again!",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
               ),
             );
           } else {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    color: Constants.primaryColor,
-                    strokeWidth: 4,
-                  ),
-                  Divider(height: 20.h, color: Colors.transparent),
-                  Text("Loading...", style: TextStyle(fontSize: 17)),
-                ],
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Constants.primaryColor,
+                      strokeWidth: 4,
+                    ),
+                    Divider(height: 20.h, color: Colors.transparent),
+                    Text("Loading...", style: TextStyle(fontSize: 17)),
+                  ],
+                ),
               ),
             );
           }
         },
-      ),
-    );
+      );
   }
 
   Future<bool> checkConnectivity() async {
