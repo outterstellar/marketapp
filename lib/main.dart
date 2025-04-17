@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/screens/authentication/loginscreen.dart';
-import 'package:marketapp/screens/mainscreen.dart';
+import 'package:marketapp/screens/getdatascreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
           title: 'Material App',
           home:
-              pref!.getBool("remember") == true ? MainScreen() : LoginScreen(),
+              pref!.getBool("remember") == true ? GetDataScrren() : LoginScreen(),
         );
       },
     );

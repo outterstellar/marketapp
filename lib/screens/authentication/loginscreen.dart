@@ -6,7 +6,7 @@ import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
 import 'package:marketapp/screens/authentication/emailVerification.dart';
 import 'package:marketapp/screens/authentication/forgotpassword.dart';
-import 'package:marketapp/screens/mainscreen.dart';
+import 'package:marketapp/screens/getdatascreen.dart';
 import 'package:marketapp/screens/authentication/signupscreen.dart';
 
 // ignore: must_be_immutable
@@ -111,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                             context: context,
                             destination:
                                 auth.currentUser!.emailVerified
-                                    ? MainScreen()
+                                    ? GetDataScrren()
                                     : EmailVerification(),
                           );
                         } on FirebaseAuthException catch (error) {

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
-import 'package:marketapp/screens/mainscreen.dart';
+import 'package:marketapp/screens/getdatascreen.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});
@@ -39,7 +39,7 @@ class _EmailVerificationState extends State<EmailVerification> {
           await pref!.setBool("remember", true);
           Constants.pushAndRemoveUntil(
             context: context,
-            destination: MainScreen(),
+            destination: GetDataScrren(),
           );
         }
       } else {
