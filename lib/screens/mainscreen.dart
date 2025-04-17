@@ -6,6 +6,7 @@ import 'package:marketapp/data/campaignmodel.dart';
 import 'package:marketapp/data/commentmodel.dart';
 import 'package:marketapp/data/productmodel.dart';
 import 'package:marketapp/main.dart';
+import 'package:marketapp/screens/campaignscreen.dart';
 
 import '../data/constants.dart';
 
@@ -33,7 +34,53 @@ class _MainScreenState extends State<MainScreen> {
         future: getData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return Text(snapshot.data.toString());
+            return ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 12,
+                  ),
+                  child: Text(
+                    "Current Campaigns",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 200.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: campaignsList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Constants.push(
+                              context: context,
+                              destination: CampaignScreen(
+                                campaign: campaignsList[index],
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 200.h,
+                            width: 315.w,
+                            decoration: BoxDecoration(
+                              color:
+                                  Colors
+                                      .amber, // We will add images that have backgrounds so this line will work only at development
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: campaignsList[index].image,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
           } else if (snapshot.hasError) {
             return Center(
               child: Container(
@@ -134,6 +181,7 @@ class _MainScreenState extends State<MainScreen> {
           startDate: currentCampaign["startDate"],
           endDate: currentCampaign["endDate"],
           productIDs: currentCampaign["productIDs"],
+          image: Image.network(currentCampaign["image"]),
           productInnerCategory: currentCampaign["productInnerCategory"],
           productUpperCategory: currentCampaign["productUpperCategory"],
         ),
