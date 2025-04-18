@@ -24,52 +24,53 @@ class _GetDataScrrenState extends State<GetDataScrren> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return MainScreen();
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Container(
-                  height: 300.h,
-                  width: 350.w,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "Something Went Wrong! Please Check Everything And Try Again!",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
+      future: getData(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return MainScreen();
+        } else if (snapshot.hasError) {
+          print(snapshot.error.toString());
+          return Scaffold(
+            body: Center(
+              child: Container(
+                height: 300.h,
+                width: 350.w,
+                decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Something Went Wrong! Please Check Everything And Try Again!",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
               ),
-            );
-          } else {
-            return Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: Constants.primaryColor,
-                      strokeWidth: 4,
-                    ),
-                    Divider(height: 20.h, color: Colors.transparent),
-                    Text("Loading...", style: TextStyle(fontSize: 17)),
-                  ],
-                ),
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: Constants.primaryColor,
+                    strokeWidth: 4,
+                  ),
+                  Divider(height: 20.h, color: Colors.transparent),
+                  Text("Loading...", style: TextStyle(fontSize: 17)),
+                ],
               ),
-            );
-          }
-        },
-      );
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<bool> checkConnectivity() async {
@@ -100,21 +101,25 @@ class _GetDataScrrenState extends State<GetDataScrren> {
       Map currentProduct = (element.data() as Map);
       Map currentProuctComments = (currentProduct["comments"] as Map);
       List currentImages = (currentProduct["images"] as List);
-      products.add(
-        Product(
-          name: currentProduct["name"],
-          description: currentProduct["description"],
-          price: double.parse(currentProduct["price"].toString()),
-          stockCount: int.parse(currentProduct["stockCount"].toString()),
-          innerCategory: currentProduct["innerCategory"],
-          upperCategory: currentProduct["upperCategory"],
-          id: currentProduct["id"],
-          images: imageListToImageList(imageList: currentImages),
-          comments: commentMapToCommentModelList(
-            commentMap: currentProuctComments,
+      try {
+        products.add(
+          Product(
+            name: currentProduct["name"],
+            description: currentProduct["description"],
+            price: double.parse(currentProduct["price"].toString()),
+            stockCount: int.parse(currentProduct["stockCount"].toString()),
+            innerCategory: currentProduct["innerCategory"],
+            upperCategory: currentProduct["upperCategory"],
+            id: currentProduct["id"],
+            images: imageListToImageList(imageList: currentImages),
+            comments: commentMapToCommentModelList(
+              commentMap: currentProuctComments,
+            ),
           ),
-        ),
-      );
+        );
+      } catch (e) {
+        print(e.toString());
+      }
     });
     return products;
   }
@@ -124,18 +129,22 @@ class _GetDataScrrenState extends State<GetDataScrren> {
     QuerySnapshot snapshot = await firestore.collection("campaigns").get();
     snapshot.docs.forEach((element) {
       Map currentCampaign = (element.data() as Map);
-      campaigns.add(
-        Campaign(
-          name: currentCampaign["name"],
-          description: currentCampaign["description"],
-          startDate: currentCampaign["startDate"],
-          endDate: currentCampaign["endDate"],
-          productIDs: currentCampaign["productIDs"],
-          image: Image.network(currentCampaign["image"]),
-          productInnerCategory: currentCampaign["productInnerCategory"],
-          productUpperCategory: currentCampaign["productUpperCategory"],
-        ),
-      );
+      try {
+        campaigns.add(
+          Campaign(
+            name: currentCampaign["name"],
+            description: currentCampaign["description"],
+            startDate: currentCampaign["startDate"],
+            endDate: currentCampaign["endDate"],
+            productIDs: currentCampaign["productIDs"],
+            image: Image.network(currentCampaign["image"]),
+            productInnerCategory: currentCampaign["productInnerCategory"],
+            productUpperCategory: currentCampaign["productUpperCategory"],
+          ),
+        );
+      } catch (e) {
+        print(e.toString());
+      }
     });
     return campaigns;
   }
