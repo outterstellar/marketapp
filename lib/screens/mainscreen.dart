@@ -62,16 +62,19 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       );
                     },
-                    child: Container(
-                      height: 200.h,
-                      width: 315.w,
-                      decoration: BoxDecoration(
-                        color:
-                            Colors
-                                .amber, // We will add images that have backgrounds so this line will work only at development
-                        borderRadius: BorderRadius.circular(20),
+                    child: Hero(
+                      tag: campaignsList[index].name,
+                      child: Container(
+                        height: 200.h,
+                        width: 315.w,
+                        decoration: BoxDecoration(
+                          color:
+                              Colors
+                                  .amber, // We will add images that have backgrounds so this line will work only at development
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: campaignsList[index].image,
                       ),
-                      child: campaignsList[index].image,
                     ),
                   ),
                 );
