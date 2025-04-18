@@ -13,6 +13,13 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    removeOldCampaigns();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: ListView(
         children: [
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12),
             child: Text(
@@ -84,5 +90,17 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+  void removeOldCampaigns() {
+    // to fix ConcurrentModificationError list error
+    // we used List.from().
+    List.from(campaignsList).forEach((element) {
+      
+      if (element.endDate.toDate().isBefore(DateTime.now()) ||
+          element.startDate.toDate().isAfter(DateTime.now())) {
+        campaignsList.remove(element);
+      }
+    });
   }
 }
