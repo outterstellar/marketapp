@@ -92,7 +92,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
               itemBuilder: (context, index) {
                 Product currentProduct = campaignProductsList()[index];
                 return Hero(
-                  tag: index.toString(),
+                  tag: currentProduct.id,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.amber,

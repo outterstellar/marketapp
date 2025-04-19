@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
+import 'package:marketapp/data/productmodel.dart';
 import 'package:marketapp/screens/campaignscreen.dart';
 import 'package:marketapp/screens/getdatascreen.dart';
 
@@ -87,16 +88,48 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
           ),
+          SizedBox(
+            height: 300.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: getBestSellers().length,
+              itemBuilder: (context, index) {
+                List<Product> bestSellers = getBestSellers();
+                Product currentBestSeller = bestSellers[index];
+                return Hero(
+                  tag: currentBestSeller.id,
+                  child: Container(
+                    height: 250.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(currentBestSeller.sold.toString()),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  List<Product> getBestSellers() {
+    List<Product> sortedProductsList = productList;
+    sortedProductsList.sort((a, b) => b.sold.compareTo(a.sold));
+    if (sortedProductsList.length > 100) {
+      return sortedProductsList.sublist(0, 100);
+    } else {
+      return sortedProductsList;
+    }
   }
 
   void removeOldCampaigns() {
     // to fix ConcurrentModificationError list error
     // we used List.from().
     List.from(campaignsList).forEach((element) {
-      
       if (element.endDate.toDate().isBefore(DateTime.now()) ||
           element.startDate.toDate().isAfter(DateTime.now())) {
         campaignsList.remove(element);
