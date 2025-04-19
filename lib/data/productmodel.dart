@@ -6,6 +6,7 @@ class Product {
   String description;
   double price;
   int stockCount;
+  int sold;
   String upperCategory;
   String? innerCategory;
   String id;
@@ -17,6 +18,7 @@ class Product {
     required this.price,
     required this.stockCount,
     required this.upperCategory,
+    required this.sold,
     this.innerCategory,
     required this.id,
     required this.images,

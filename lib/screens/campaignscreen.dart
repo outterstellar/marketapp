@@ -58,7 +58,12 @@ class _CampaignScreenState extends State<CampaignScreen> {
             ),
           ),
           Center(
-            child: Text(widget.campaign.name, style: TextStyle(fontSize: 23)),
+            child: Text(
+              widget.campaign.name,
+              style: TextStyle(fontSize: 23),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
           ),
           Center(
             child: Padding(
@@ -85,7 +90,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
                 childAspectRatio: 0.75, // genişlik/yükseklik oranı
               ),
               itemBuilder: (context, index) {
-                Product  currentProduct = campaignProductsList()[index];
+                Product currentProduct = campaignProductsList()[index];
                 return Hero(
                   tag: index.toString(),
                   child: Container(
@@ -120,8 +125,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
               .where(
                 (product) =>
                     product.upperCategory ==
-                        widget.campaign.productUpperCategory &&
-                    product.innerCategory == null,
+                    widget.campaign.productUpperCategory,
               )
               .toList();
     } else {

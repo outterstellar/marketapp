@@ -111,6 +111,7 @@ class _GetDataScrrenState extends State<GetDataScrren> {
             innerCategory: currentProduct["innerCategory"],
             upperCategory: currentProduct["upperCategory"],
             id: currentProduct["id"],
+            sold: currentProduct["sold"],
             images: imageListToImageList(imageList: currentImages),
             comments: commentMapToCommentModelList(
               commentMap: currentProuctComments,
