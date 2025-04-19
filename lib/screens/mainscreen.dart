@@ -88,24 +88,25 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12),
+            child: Text(
+              "Bestsellers Of All Time",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           SizedBox(
-            height: 300.h,
+            height: 350.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: getBestSellers().length,
               itemBuilder: (context, index) {
                 List<Product> bestSellers = getBestSellers();
                 Product currentBestSeller = bestSellers[index];
-                return Hero(
-                  tag: currentBestSeller.id,
-                  child: Container(
-                    height: 250.h,
-                    width: 100.w,
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(currentBestSeller.sold.toString()),
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Constants.returnProductWidget(
+                    product: currentBestSeller,
                   ),
                 );
               },

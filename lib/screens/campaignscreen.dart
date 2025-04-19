@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/campaignmodel.dart';
+import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/data/productmodel.dart';
 import 'package:marketapp/screens/getdatascreen.dart';
 
@@ -91,15 +92,9 @@ class _CampaignScreenState extends State<CampaignScreen> {
               ),
               itemBuilder: (context, index) {
                 Product currentProduct = campaignProductsList()[index];
-                return Hero(
-                  tag: currentProduct.id,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: currentProduct.images[0],
-                  ),
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Constants.returnProductWidget(product: currentProduct),
                 );
               },
             ),
