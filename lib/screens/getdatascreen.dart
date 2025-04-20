@@ -108,8 +108,8 @@ class _GetDataScrrenState extends State<GetDataScrren> {
             description: currentProduct["description"],
             price: double.parse(currentProduct["price"].toString()),
             stockCount: int.parse(currentProduct["stockCount"].toString()),
-            innerCategory: currentProduct["innerCategory"],
-            upperCategory: currentProduct["upperCategory"],
+            innerCategory: getSubCategory(currentProduct["innerCategory"]),
+            upperCategory: getUpperCategory(currentProduct["upperCategory"]),
             id: currentProduct["id"],
             sold: currentProduct["sold"],
             images: imageListToImageList(imageList: currentImages),
@@ -123,6 +123,38 @@ class _GetDataScrrenState extends State<GetDataScrren> {
       }
     });
     return products;
+  }
+
+  Category getUpperCategory(dynamic category) {
+    if (category == "Percussion") {
+      return Category.percussionInstruments;
+    } else if (category == "String") {
+      return Category.stringInstruments;
+    } else if (category == "Wind") {
+      return Category.windInstruments;
+    } else if (category == "Keyboard") {
+      return Category.keyboardInstruments;
+    } else if (category == "Plucked String") {
+      return Category.pluckedStringInstruments;
+    } else if (category == "Stage Eqipments") {
+      return Category.stageEquipments;
+    } else if (category == "Audio Equipments") {
+      return Category.audioEquipments;
+    } else if (category == "Bowed String") {
+      return Category.bowedStringInstruments;
+    } else {
+      return Category.generalMusicAccessories;
+    }
+  }
+
+  SubCategory? getSubCategory(dynamic subcategory) {
+    if (subcategory == "Instruments") {
+      return SubCategory.instruments;
+    } else if (subcategory == null) {
+      return null;
+    } else {
+      return SubCategory.accessories;
+    }
   }
 
   Future<List<Campaign>> getCampaigns() async {
@@ -139,8 +171,12 @@ class _GetDataScrrenState extends State<GetDataScrren> {
             endDate: currentCampaign["endDate"],
             productIDs: currentCampaign["productIDs"],
             image: Image.network(currentCampaign["image"]),
-            productInnerCategory: currentCampaign["productInnerCategory"],
-            productUpperCategory: currentCampaign["productUpperCategory"],
+            productInnerCategory: getSubCategory(
+              currentCampaign["productInnerCategory"],
+            ),
+            productUpperCategory: getUpperCategory(
+              currentCampaign["productUpperCategory"],
+            ),
           ),
         );
       } catch (e) {

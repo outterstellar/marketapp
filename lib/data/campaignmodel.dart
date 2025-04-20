@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:marketapp/data/productmodel.dart';
 
 class Campaign {
   String name;
@@ -7,8 +8,8 @@ class Campaign {
   Timestamp startDate;
   Timestamp endDate;
   List? productIDs;
-  String? productUpperCategory;
-  String? productInnerCategory;
+  Category? productUpperCategory;
+  SubCategory? productInnerCategory;
   Image image;
   Campaign({
     required this.name,

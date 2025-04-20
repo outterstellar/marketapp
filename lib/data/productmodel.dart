@@ -7,8 +7,8 @@ class Product {
   double price;
   int stockCount;
   int sold;
-  String upperCategory;
-  String? innerCategory;
+  Category upperCategory;
+  SubCategory? innerCategory;
   String id;
   List<Image> images;
   List<Comment> comments;
@@ -25,3 +25,17 @@ class Product {
     required this.comments,
   });
 }
+
+enum Category {
+  percussionInstruments,
+  stringInstruments,
+  windInstruments,
+  keyboardInstruments,
+  pluckedStringInstruments,
+  bowedStringInstruments,
+  audioEquipments,
+  generalMusicAccessories,
+  stageEquipments,
+}
+
+enum SubCategory { instruments, accessories }
