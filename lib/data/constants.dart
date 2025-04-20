@@ -45,34 +45,47 @@ class Constants {
   }
 
   static Widget returnProductWidget({required Product product}) {
-    return Hero(
-      tag: product.id,
-      child: Center(
-        child: Container(
-          height: 280.h,
-          width: 220.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(height: 150.h, width: 180.w, child: product.images[0]),
-                Text(
-                  product.name.split('').join('\u200B'), // to break word
-                  style: TextStyle(fontSize: 17),
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  maxLines: 2,
+    return Center(
+      child: Container(
+        height: 300.h,
+        width: 180.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: 150.h, width: 150.w, child: product.images[0]),
+            Container(
+              height: 100.h,
+              width: 180.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.amber,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      product.name.split('').join('\u200B'), // to break word
+                      style: TextStyle(fontSize: 15),
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      maxLines: 2,
+                    ),
+                    Text("There will be stars"),
+                    Text(
+                      product.price.toString(),
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
                 ),
-                Text("There will be stars"),
-                Text(product.price.toString(), style: TextStyle(fontSize: 20)),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

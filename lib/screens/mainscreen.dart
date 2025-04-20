@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/data/productmodel.dart';
+import 'package:marketapp/screens/bestsellersscreen.dart';
 import 'package:marketapp/screens/campaignscreen.dart';
 import 'package:marketapp/screens/getdatascreen.dart';
 
@@ -88,28 +89,43 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12),
-            child: Text(
-              "Bestsellers Of All Time",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "Bestsellers Of All Time",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Constants.push(
+                    context: context,
+                    destination: BestSellersScreen(
+                      bestsellers: getBestSellers(),
+                    ),
+                  );
+                },
+                child: Text("Show More"),
+              ),
+            ],
           ),
           SizedBox(
-            height: 350.h,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: getBestSellers().length,
-              itemBuilder: (context, index) {
-                List<Product> bestSellers = getBestSellers();
-                Product currentBestSeller = bestSellers[index];
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Constants.returnProductWidget(
-                    product: currentBestSeller,
-                  ),
-                );
-              },
+            height: 300.h,
+            child: Center(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: getBestSellers().length < 10 ? getBestSellers().length : 10,
+                itemBuilder: (context, index) {
+                  List<Product> bestSellers = getBestSellers();
+                  Product currentBestSeller = bestSellers[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Constants.returnProductWidget(
+                      product: currentBestSeller,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
