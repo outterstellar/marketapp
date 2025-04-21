@@ -78,24 +78,24 @@ class _CampaignScreenState extends State<CampaignScreen> {
               style: TextStyle(fontSize: 20),
             ),
           ),
+          Divider(
+              height:20,
+              color: Colors.transparent,
+          ),
           Center(
             child: GridView.builder(
               shrinkWrap: true,
-              padding: EdgeInsets.all(16),
               physics: NeverScrollableScrollPhysics(),
               itemCount: campaignProductsList().length, // kampanyaların listesi
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, // 2 sütunlu yapı
                 crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.75, // genişlik/yükseklik oranı
+                mainAxisSpacing: 32,
+                childAspectRatio: 0.7, // genişlik/yükseklik oranı
               ),
               itemBuilder: (context, index) {
                 Product currentProduct = campaignProductsList()[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Constants.returnProductWidget(product: currentProduct),
-                );
+                return Constants.returnProductWidget(product: currentProduct);
               },
             ),
           ),

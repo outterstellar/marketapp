@@ -45,42 +45,52 @@ class Constants {
   }
 
   static Widget returnProductWidget({required Product product}) {
+    final imageWidget =
+        (product.images.isNotEmpty)
+            ? product.images.first
+            : const Placeholder(); // ya da bir Asset, örneğin: Image.asset("assets/placeholder.png")
+
     return Center(
       child: Container(
         height: 300.h,
         width: 180.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.grey,
+          color: Colors.grey[300],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 150.h, width: 150.w, child: product.images[0]),
+            SizedBox(
+              height: 150.h,
+              width: 150.w,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: imageWidget,
+              ),
+            ),
             Container(
               height: 100.h,
-              width: 180.w,
+              width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.amber,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                color: Colors.amber[200],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.name.split('').join('\u200B'), // to break word
-                      style: TextStyle(fontSize: 15),
+                      product.name,
                       overflow: TextOverflow.ellipsis,
-                      softWrap: false,
                       maxLines: 2,
                     ),
-                    Text("There will be stars"),
-                    Text(
-                      product.price.toString(),
-                      style: TextStyle(fontSize: 15),
-                    ),
+                    Text("${product.price} ₺"),
                   ],
                 ),
               ),
