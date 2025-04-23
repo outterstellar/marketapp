@@ -111,7 +111,99 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Percussion",
+            Category.percussionInstruments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Plucked String",
+            Category.pluckedStringInstruments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Audio Equipments",
+            Category.audioEquipments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Bowed String",
+            Category.bowedStringInstruments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "General Music Accessories",
+            Category.generalMusicAccessories,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Keyboard",
+            Category.keyboardInstruments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Stage Equipments",
+            Category.stageEquipments,
+          ),
+          returnHorizontalCategoriesWidgetGroup(
+            "Wind",
+            Category.windInstruments,
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget returnHorizontalCategoriesWidgetGroup(
+    String categoryName,
+    Category category,
+  ) {
+    List<Product> categoryProducts =
+        productList.where((product) {
+          if (product.upperCategory == category) {
+            return true;
+          } else {
+            return false;
+          }
+        }).toList();
+    if (categoryProducts.length > 10) {
+      categoryProducts = categoryProducts.sublist(0, 10);
+    }
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.black, width: 1)),
+      ),
+      height: 300.h,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: categoryProducts.length + 1,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return SizedBox(
+                width: 180.w,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.brown.shade400,
+                      radius: 60,
+                      child: Image.asset(
+                        "assets/images/${categoryName.replaceAll(" ", "").toLowerCase()}.png",
+                        height: 80.h,
+                        width: 80.w,
+                      ),
+                    ),
+                    Center(child: Text(categoryName, style: TextStyle(fontSize: 20) , textAlign: TextAlign.center,
+)),
+                  ],
+                ),
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Constants.returnProductWidget(
+                  product: categoryProducts[index - 1],
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }
