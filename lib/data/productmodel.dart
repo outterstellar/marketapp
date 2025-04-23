@@ -28,7 +28,6 @@ class Product {
 
 enum Category {
   percussionInstruments,
-  stringInstruments,
   windInstruments,
   keyboardInstruments,
   pluckedStringInstruments,

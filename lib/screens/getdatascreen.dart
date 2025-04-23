@@ -128,8 +128,6 @@ class _GetDataScrrenState extends State<GetDataScrren> {
   Category getUpperCategory(dynamic category) {
     if (category == "Percussion") {
       return Category.percussionInstruments;
-    } else if (category == "String") {
-      return Category.stringInstruments;
     } else if (category == "Wind") {
       return Category.windInstruments;
     } else if (category == "Keyboard") {

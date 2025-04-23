@@ -17,26 +17,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          'Liszt Music\nMarket',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            height: 1.2, // Satır aralığı
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: Constants.appBar,
       body: ListView(
         children: [
           Padding(
@@ -78,10 +59,7 @@ class _CampaignScreenState extends State<CampaignScreen> {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Divider(
-              height:20,
-              color: Colors.transparent,
-          ),
+          Divider(height: 20, color: Colors.transparent),
           Center(
             child: GridView.builder(
               shrinkWrap: true,

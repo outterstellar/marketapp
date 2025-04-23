@@ -24,26 +24,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          'Liszt Music\nMarket',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            height: 1.2, // Satır aralığı
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: Constants.appBar,
+      drawer: Constants.drawer,
       body: ListView(
         children: [
           Padding(
@@ -114,7 +96,8 @@ class _MainScreenState extends State<MainScreen> {
             child: Center(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: getBestSellers().length < 10 ? getBestSellers().length : 10,
+                itemCount:
+                    getBestSellers().length < 10 ? getBestSellers().length : 10,
                 itemBuilder: (context, index) {
                   List<Product> bestSellers = getBestSellers();
                   Product currentBestSeller = bestSellers[index];
