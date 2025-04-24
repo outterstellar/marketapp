@@ -4,6 +4,7 @@ import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/data/productmodel.dart';
 import 'package:marketapp/screens/bestsellersscreen.dart';
 import 'package:marketapp/screens/campaignscreen.dart';
+import 'package:marketapp/screens/categoryscreen.dart';
 import 'package:marketapp/screens/getdatascreen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -175,28 +176,39 @@ class _MainScreenState extends State<MainScreen> {
           itemCount: categoryProducts.length + 1,
           itemBuilder: (context, index) {
             if (index == 0) {
-              return SizedBox(
-                width: 180.w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.brown.shade400,
-                      radius: 60,
-                      child: Image.asset(
-                        "assets/images/${categoryName.replaceAll(" ", "").toLowerCase()}.png",
-                        height: 80.h,
-                        width: 80.w,
+              return GestureDetector(
+                onTap: () {
+                  pushToCategoryScreenWithParameters(
+                    categoryProducts,
+                    category,
+                  );
+                },
+                child: SizedBox(
+                  width: 180.w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.brown.shade400,
+                        radius: 60,
+                        child: Image.asset(
+                          "assets/images/${categoryName.replaceAll(" ", "").toLowerCase()}.png",
+                          height: 80.h,
+                          width: 80.w,
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: Text(
-                        categoryName,
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.center,
+                      Center(
+                        child: SizedBox(
+                          width: 150.w,
+                          child: Text(
+                            categoryName,
+                            style: TextStyle(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             } else {
@@ -216,23 +228,47 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          pushToCategoryScreenWithParameters(
+                            categoryProducts,
+                            category,
+                          );
+                        },
                         icon: Icon(Icons.arrow_forward_ios),
                       ),
                     ],
                   ),
                 );
-              }else{
-                return  Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Constants.returnProductWidget(
-                  product: categoryProducts[index - 1],
-                ),
-              );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Constants.returnProductWidget(
+                    product: categoryProducts[index - 1],
+                  ),
+                );
               }
             }
           },
         ),
+      ),
+    );
+  }
+
+  void pushToCategoryScreenWithParameters(
+    List<Product> categoryProducts,
+    Category category,
+  ) {
+    Set<SubCategory> subCategories = {};
+    for (Product product in categoryProducts) {
+      if (product.innerCategory != null) {
+        subCategories.add(product.innerCategory!);
+      }
+    }
+    Constants.push(
+      context: context,
+      destination: CategoryScreen(
+        category: category,
+        subCategories: subCategories.toList(),
       ),
     );
   }
