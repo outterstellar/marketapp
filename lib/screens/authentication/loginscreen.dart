@@ -9,10 +9,9 @@ import 'package:marketapp/screens/authentication/forgotpassword.dart';
 import 'package:marketapp/screens/getdatascreen.dart';
 import 'package:marketapp/screens/authentication/signupscreen.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {

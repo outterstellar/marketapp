@@ -5,9 +5,8 @@ import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/main.dart';
 import 'package:marketapp/screens/authentication/signupscreen.dart';
 
-// ignore: must_be_immutable
 class ForgotPassword extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   ForgotPassword({super.key});
 
   @override

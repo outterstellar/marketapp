@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:marketapp/data/constants.dart';
 import 'package:marketapp/data/productmodel.dart';
 
-// ignore: must_be_immutable
 class BestSellersScreen extends StatefulWidget {
-  List<Product> bestsellers;
-  BestSellersScreen({super.key, required this.bestsellers});
+  final List<Product> bestsellers;
+  const BestSellersScreen({super.key, required this.bestsellers});
 
   @override
   State<BestSellersScreen> createState() => _BestSellersScreenState();
