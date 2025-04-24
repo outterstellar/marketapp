@@ -189,18 +189,47 @@ class _MainScreenState extends State<MainScreen> {
                         width: 80.w,
                       ),
                     ),
-                    Center(child: Text(categoryName, style: TextStyle(fontSize: 20) , textAlign: TextAlign.center,
-)),
+                    Center(
+                      child: Text(
+                        categoryName,
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               );
             } else {
-              return Padding(
+              if (index == categoryProducts.length) {
+                return SizedBox(
+                  height: 300.h,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 8.0,
+                          bottom: 8.0,
+                          left: 8.0,
+                        ),
+                        child: Constants.returnProductWidget(
+                          product: categoryProducts[index - 1],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                );
+              }else{
+                return  Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Constants.returnProductWidget(
                   product: categoryProducts[index - 1],
                 ),
               );
+              }
             }
           },
         ),
