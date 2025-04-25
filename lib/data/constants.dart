@@ -10,7 +10,6 @@ class Constants {
   static Color buttonBackgroundColor = Color(0xff123458);
   static AppBar appBar = AppBar(
     backgroundColor: Colors.white,
-    elevation: 0,
     title: Text(
       'Liszt Music\nMarket',
       style: TextStyle(
@@ -22,12 +21,6 @@ class Constants {
     ),
 
     centerTitle: false,
-    actions: [
-      IconButton(
-        icon: Icon(Icons.more_vert, color: Colors.black),
-        onPressed: () {},
-      ),
-    ],
   );
   static Drawer drawer = Drawer(
     child: ListView(

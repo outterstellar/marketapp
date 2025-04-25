@@ -25,8 +25,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: Constants.appBar,
-      drawer: Constants.drawer,
+      endDrawer: Constants.drawer,
+      
       body: ListView(
         children: [
           Padding(
@@ -181,6 +183,7 @@ class _MainScreenState extends State<MainScreen> {
                   pushToCategoryScreenWithParameters(
                     categoryProducts,
                     category,
+                    categoryName,
                   );
                 },
                 child: SizedBox(
@@ -232,6 +235,7 @@ class _MainScreenState extends State<MainScreen> {
                           pushToCategoryScreenWithParameters(
                             categoryProducts,
                             category,
+                            categoryName
                           );
                         },
                         icon: Icon(Icons.arrow_forward_ios),
@@ -257,6 +261,7 @@ class _MainScreenState extends State<MainScreen> {
   void pushToCategoryScreenWithParameters(
     List<Product> categoryProducts,
     Category category,
+    String categoryName,
   ) {
     Set<SubCategory> subCategories = {};
     for (Product product in categoryProducts) {
@@ -268,6 +273,7 @@ class _MainScreenState extends State<MainScreen> {
       context: context,
       destination: CategoryScreen(
         category: category,
+        categoryName: categoryName,
         subCategories: subCategories.toList(),
       ),
     );
